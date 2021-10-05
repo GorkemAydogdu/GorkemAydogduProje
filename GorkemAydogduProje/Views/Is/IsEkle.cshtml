@@ -1,0 +1,24 @@
+﻿@model GorkemAydogduProje.Models.Database.tbl_Is
+@{
+    ViewBag.Title = "IsEkle";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Is Adı</label>
+        <input style="margin-bottom:10px;" required type="text" class="form-control" name="IsAdi" />
+        <label>Proje</label>
+        @Html.DropDownListFor(m=>m.tbl_Proje.Id,(List<SelectListItem>)ViewBag.dgr,new { @class="form-control"})<!-- m'nin içine Proje id atama
+                                                                                                                selectListItem ViewBag.dgr listesinden öğeleri seç 
+                                                                                                            -->
+        <label style="margin-top:10px;">Başlangıc Tarihi</label>
+        <input style="margin-bottom:10px;" required type="date" class="form-control" name="BaslangicTarihi" />
+        <label>Bitis Tarihi</label>
+        <input style="margin-bottom:10px;" required type="date" class="form-control" name="BitisTarihi" />
+        <label>Durumu</label>
+        <input style="margin-bottom:10px;" readonly type="text" value="0" class="form-control" name="Durumu" />
+
+        <button class="btn btn-info">Is Ekle</button>
+    </div>
+</form>

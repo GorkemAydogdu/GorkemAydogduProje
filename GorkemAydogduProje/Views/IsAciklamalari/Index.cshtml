@@ -1,0 +1,35 @@
+﻿@using GorkemAydogduProje.Models.Database
+@model List<tbl_IsAciklama>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Is</th>
+            <th>Aciklamasi</th>
+            <th>Calisan</th>
+            <th>Tarih</th>
+            <th>Durum</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var isAciklama in Model)
+        {
+        <tr>
+            <td>@isAciklama.tbl_Is.IsAdi</td>
+            <td>@isAciklama.Aciklama</td>
+            <td>@isAciklama.tbl_Calisan.CalisanAdi</td>
+            <td>@isAciklama.Tarih</td>
+            <td>@isAciklama.Durum</td>
+            <td><a href="/IsAciklamalari/Sil/@isAciklama.Id" class="btn btn-danger">Sil</a></td>
+            <td><a href="/IsAciklamalari/AciklamalariGetir/@isAciklama.Id" class="btn btn-success">Güncelle</a></td>
+        </tr>
+        }
+    </tbody>
+</table>
+<a href="/IsAciklamalari/AciklamaEkle/" class="btn btn-primary">Aciklama Ekle</a>

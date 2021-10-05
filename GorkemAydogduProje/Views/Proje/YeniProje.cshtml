@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "YeniProje";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Proje Adı</label>
+        <input style="margin-bottom:10px;" required type="text" class="form-control" name="ProjeAdi" />
+        <label>Başlangıc Tarihi</label>
+        <input style="margin-bottom:10px;" required type="date" class="form-control" name="BaslangicTarihi" />
+        <label>Bitis Tarihi</label>
+        <input style="margin-bottom:10px;" required type="date" class="form-control" name="BitisTarihi" />
+        <label>Durumu</label>
+        <input style="margin-bottom:10px;" readonly type="text" value="0" class="form-control" name="Durumu"/>
+        <button class="btn btn-info">Proje Ekle</button>
+    </div>
+</form>

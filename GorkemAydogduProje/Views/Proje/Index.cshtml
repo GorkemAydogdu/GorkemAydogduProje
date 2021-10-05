@@ -1,0 +1,41 @@
+﻿@using GorkemAydogduProje.Models.Database
+@model List<tbl_Proje>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Proje Adı</th>
+            <th>Proje Baslangıc Tarihi</th>
+            <th>Proje Bitis Tarihi</th>
+            <th>Proje Durumu</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var proje in Model)
+        {
+            <tr>
+                <td>@proje.ProjeAdi</td>
+                <td>@proje.BaslangicTarihi</td>
+                <td>@proje.BitisTarihi</td>
+                <td>@proje.Durumu</td>
+                <td><a href="/Proje/Sil/@proje.Id" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Proje/ProjeGetir/@proje.Id" class="btn btn-success">Güncelle</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<ul class="list-group">
+    @foreach (var proje in Model)
+    {
+        <li class="list-group-item">@proje.ProjeAdi</li>
+        <li class="list-group-item">@proje.BaslangicTarihi - @proje.BitisTarihi</li>
+        <li class="list-group-item">@proje.Durumu</li>
+        <br />
+    }
+</ul>
+<a href="/Proje/YeniProje/" class="btn btn-primary">Yeni Proje</a>

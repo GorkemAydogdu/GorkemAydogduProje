@@ -1,0 +1,27 @@
+﻿@model GorkemAydogduProje.Models.Database.tbl_Is
+@{
+    ViewBag.Title = "IsleriGetir";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@using (Html.BeginForm("Guncelle", "Is", FormMethod.Post))
+{
+<div class="form-group">
+    @Html.LabelFor(m => m.Id)
+    @Html.TextBoxFor(m => m.Id, new { @readonly = "true", @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.IsAdi)
+    @Html.TextBoxFor(m => m.IsAdi, new { @readonly = "true", @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.Proje)
+    @Html.TextBoxFor(m => m.tbl_Proje.ProjeAdi, new { @readonly = "true", @class = "form-control" })
+    <br />
+    @Html.LabelFor(m => m.Durumu)
+    @Html.TextBoxFor(m => m.Durumu, new { @Value = "1", @readonly = "true", @class = "form-control" })
+
+    <button style="margin-top:15px;" class="btn btn-warning">Güncelle</button>
+</div>
+}
+
+
+
+

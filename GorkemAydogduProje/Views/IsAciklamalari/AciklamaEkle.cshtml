@@ -1,0 +1,21 @@
+﻿@model GorkemAydogduProje.Models.Database.tbl_IsAciklama
+@{
+    ViewBag.Title = "AciklamaEkle";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+<form class="form-group" method="post">
+    <div>
+        <label>Is</label>
+        @Html.DropDownListFor(m => m.tbl_Is.Id, (List<SelectListItem>)ViewBag.dgr1, new { @class = "form-control" })
+        <label style="margin-top:10px;">Aciklama</label>
+        <input style="margin-bottom:10px;" required type="text" class="form-control" name="Aciklama" />
+        @Html.Partial("_PartialPage")
+        <label style="margin-top:10px;">Aciklama Tarihi</label>
+        <input style="margin-bottom:10px;" required type="date" class="form-control" name="Tarih" />
+        <label>Durum</label>
+        <input style="margin-bottom:10px;" readonly type="text" value="0" class="form-control" name="Durum" />
+
+        <button class="btn btn-info">Aciklama Ekle</button>
+    </div>
+</form>

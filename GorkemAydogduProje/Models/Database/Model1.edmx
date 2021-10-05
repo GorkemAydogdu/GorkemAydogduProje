@@ -1,0 +1,316 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GA_StajProjeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="tbl_Calisan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CalisanAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="CalisanMail" Type="nvarchar" MaxLength="50" />
+          <Property Name="Durumu" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="tbl_Is">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Proje" Type="int" />
+          <Property Name="BaslangicTarihi" Type="date" />
+          <Property Name="BitisTarihi" Type="date" />
+          <Property Name="Durumu" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="tbl_IsAciklama">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Is" Type="int" />
+          <Property Name="Aciklama" Type="nvarchar" MaxLength="100" />
+          <Property Name="Calisan" Type="int" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Durum" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tbl_Proje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjeAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="BaslangicTarihi" Type="date" />
+          <Property Name="BitisTarihi" Type="date" />
+          <Property Name="Durumu" Type="char" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_tbl_Is_tbl_Proje">
+          <End Role="tbl_Proje" Type="Self.tbl_Proje" Multiplicity="0..1" />
+          <End Role="tbl_Is" Type="Self.tbl_Is" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Proje">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_Is">
+              <PropertyRef Name="Proje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_IsAciklama_tbl_Calisan">
+          <End Role="tbl_Calisan" Type="Self.tbl_Calisan" Multiplicity="0..1" />
+          <End Role="tbl_IsAciklama" Type="Self.tbl_IsAciklama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Calisan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_IsAciklama">
+              <PropertyRef Name="Calisan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_IsAciklama_tbl_Is">
+          <End Role="tbl_Is" Type="Self.tbl_Is" Multiplicity="0..1" />
+          <End Role="tbl_IsAciklama" Type="Self.tbl_IsAciklama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Is">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_IsAciklama">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GA_StajProjeModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Calisan" EntityType="Self.tbl_Calisan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Is" EntityType="Self.tbl_Is" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_IsAciklama" EntityType="Self.tbl_IsAciklama" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Proje" EntityType="Self.tbl_Proje" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbl_Is_tbl_Proje" Association="Self.FK_tbl_Is_tbl_Proje">
+            <End Role="tbl_Proje" EntitySet="tbl_Proje" />
+            <End Role="tbl_Is" EntitySet="tbl_Is" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_IsAciklama_tbl_Calisan" Association="Self.FK_tbl_IsAciklama_tbl_Calisan">
+            <End Role="tbl_Calisan" EntitySet="tbl_Calisan" />
+            <End Role="tbl_IsAciklama" EntitySet="tbl_IsAciklama" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_IsAciklama_tbl_Is" Association="Self.FK_tbl_IsAciklama_tbl_Is">
+            <End Role="tbl_Is" EntitySet="tbl_Is" />
+            <End Role="tbl_IsAciklama" EntitySet="tbl_IsAciklama" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GA_StajProjeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="tbl_Calisan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CalisanAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CalisanMail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Durumu" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tbl_IsAciklama" Relationship="Self.FK_tbl_IsAciklama_tbl_Calisan" FromRole="tbl_Calisan" ToRole="tbl_IsAciklama" />
+        </EntityType>
+        <EntityType Name="tbl_Is">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Proje" Type="Int32" />
+          <Property Name="BaslangicTarihi" Type="DateTime" Precision="0" />
+          <Property Name="BitisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Durumu" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tbl_Proje" Relationship="Self.FK_tbl_Is_tbl_Proje" FromRole="tbl_Is" ToRole="tbl_Proje" />
+          <NavigationProperty Name="tbl_IsAciklama" Relationship="Self.FK_tbl_IsAciklama_tbl_Is" FromRole="tbl_Is" ToRole="tbl_IsAciklama" />
+        </EntityType>
+        <EntityType Name="tbl_IsAciklama">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Is" Type="Int32" />
+          <Property Name="Aciklama" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Calisan" Type="Int32" />
+          <Property Name="Tarih" Type="DateTime" Precision="0" />
+          <Property Name="Durum" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tbl_Calisan" Relationship="Self.FK_tbl_IsAciklama_tbl_Calisan" FromRole="tbl_IsAciklama" ToRole="tbl_Calisan" />
+          <NavigationProperty Name="tbl_Is" Relationship="Self.FK_tbl_IsAciklama_tbl_Is" FromRole="tbl_IsAciklama" ToRole="tbl_Is" />
+        </EntityType>
+        <EntityType Name="tbl_Proje">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjeAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BaslangicTarihi" Type="DateTime" Precision="0" />
+          <Property Name="BitisTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Durumu" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="tbl_Is" Relationship="Self.FK_tbl_Is_tbl_Proje" FromRole="tbl_Proje" ToRole="tbl_Is" />
+        </EntityType>
+        <Association Name="FK_tbl_IsAciklama_tbl_Calisan">
+          <End Role="tbl_Calisan" Type="Self.tbl_Calisan" Multiplicity="0..1" />
+          <End Role="tbl_IsAciklama" Type="Self.tbl_IsAciklama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Calisan">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_IsAciklama">
+              <PropertyRef Name="Calisan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_Is_tbl_Proje">
+          <End Role="tbl_Proje" Type="Self.tbl_Proje" Multiplicity="0..1" />
+          <End Role="tbl_Is" Type="Self.tbl_Is" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Proje">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_Is">
+              <PropertyRef Name="Proje" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_IsAciklama_tbl_Is">
+          <End Role="tbl_Is" Type="Self.tbl_Is" Multiplicity="0..1" />
+          <End Role="tbl_IsAciklama" Type="Self.tbl_IsAciklama" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Is">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tbl_IsAciklama">
+              <PropertyRef Name="Is" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GA_StajProjeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="tbl_Calisan" EntityType="Self.tbl_Calisan" />
+          <EntitySet Name="tbl_Is" EntityType="Self.tbl_Is" />
+          <EntitySet Name="tbl_IsAciklama" EntityType="Self.tbl_IsAciklama" />
+          <EntitySet Name="tbl_Proje" EntityType="Self.tbl_Proje" />
+          <AssociationSet Name="FK_tbl_IsAciklama_tbl_Calisan" Association="Self.FK_tbl_IsAciklama_tbl_Calisan">
+            <End Role="tbl_Calisan" EntitySet="tbl_Calisan" />
+            <End Role="tbl_IsAciklama" EntitySet="tbl_IsAciklama" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_Is_tbl_Proje" Association="Self.FK_tbl_Is_tbl_Proje">
+            <End Role="tbl_Proje" EntitySet="tbl_Proje" />
+            <End Role="tbl_Is" EntitySet="tbl_Is" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_IsAciklama_tbl_Is" Association="Self.FK_tbl_IsAciklama_tbl_Is">
+            <End Role="tbl_Is" EntitySet="tbl_Is" />
+            <End Role="tbl_IsAciklama" EntitySet="tbl_IsAciklama" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GA_StajProjeModelStoreContainer" CdmEntityContainer="GA_StajProjeEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GA_StajProjeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Calisan">
+            <EntityTypeMapping TypeName="GA_StajProjeModel.tbl_Calisan">
+              <MappingFragment StoreEntitySet="tbl_Calisan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CalisanAdi" ColumnName="CalisanAdi" />
+                <ScalarProperty Name="CalisanMail" ColumnName="CalisanMail" />
+                <ScalarProperty Name="Durumu" ColumnName="Durumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Is">
+            <EntityTypeMapping TypeName="GA_StajProjeModel.tbl_Is">
+              <MappingFragment StoreEntitySet="tbl_Is">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsAdi" ColumnName="IsAdi" />
+                <ScalarProperty Name="Proje" ColumnName="Proje" />
+                <ScalarProperty Name="BaslangicTarihi" ColumnName="BaslangicTarihi" />
+                <ScalarProperty Name="BitisTarihi" ColumnName="BitisTarihi" />
+                <ScalarProperty Name="Durumu" ColumnName="Durumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_IsAciklama">
+            <EntityTypeMapping TypeName="GA_StajProjeModel.tbl_IsAciklama">
+              <MappingFragment StoreEntitySet="tbl_IsAciklama">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Is" ColumnName="Is" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="Calisan" ColumnName="Calisan" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Proje">
+            <EntityTypeMapping TypeName="GA_StajProjeModel.tbl_Proje">
+              <MappingFragment StoreEntitySet="tbl_Proje">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProjeAdi" ColumnName="ProjeAdi" />
+                <ScalarProperty Name="BaslangicTarihi" ColumnName="BaslangicTarihi" />
+                <ScalarProperty Name="BitisTarihi" ColumnName="BitisTarihi" />
+                <ScalarProperty Name="Durumu" ColumnName="Durumu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
